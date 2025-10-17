@@ -66,3 +66,15 @@ def key_set(my_bst):
     key_set_tree(my_bst["root"], keys)
     return keys
 
+def value_set_tree(root, values):
+    retorno = sll.new_list()
+    if root is not None:
+        value_set_tree(root["left"], values)
+        sll.add_last(retorno, bsn.get_value(root))
+        value_set_tree(root["right"], values)
+    return retorno
+
+def value_set(my_bst):
+    values = sll.new_list()
+    value_set_tree(my_bst["root"], values)
+    return values
