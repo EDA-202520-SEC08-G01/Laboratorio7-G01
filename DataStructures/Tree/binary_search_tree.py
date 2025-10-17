@@ -1,5 +1,6 @@
 from DataStructures.Tree import bst_node as bsn
 from DataStructures.List import array_list as al
+from DataStructures.List import single_linked_list as sll
 
 
 def new_map():
@@ -53,4 +54,15 @@ def is_empty(my_bst):
     return size(my_bst) == 0
 
 def key_set_tree(root, keys):
-    pass
+    retorno = sll.new_list()
+    if root is not None:
+        key_set_tree(root["left"], keys)
+        sll.add_last(retorno, bsn.get_key(root))
+        key_set_tree(root["right"], keys)
+    return retorno
+
+def key_set(my_bst):
+    keys = sll.new_list()
+    key_set_tree(my_bst["root"], keys)
+    return keys
+
