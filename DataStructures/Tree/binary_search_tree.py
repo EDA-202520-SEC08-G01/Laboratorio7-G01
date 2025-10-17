@@ -66,20 +66,20 @@ def key_set(my_bst):
     key_set_tree(my_bst["root"], keys)
     return keys
 
-from DataStructures.List import array_list as al
-
-def value_set(my_bst):
-    list = value_set_tree(my_bst["root"])
-    if list is None:
-        return None
-    return list
 
 
-def value_set_tree(root, key_list):
+def keys_range(root, low_key, high_key, keys):
     if root is None:
-        return key_list
-    else:
-        value_set_tree(root["left"], key_list)
-        al.add_last(key_list, root["key"])
-        value_set_tree(root["right"], key_list)
-    return key_list
+        return
+    current_key = bsn.get_key(root)
+    if low_key < current_key:
+        keys_range(root["left"], low_key, high_key, keys)
+    if low_key <= current_key <= high_key:
+        sll.add_last(keys, current_key)
+    if current_key < high_key:
+        keys_range(root["right"], low_key, high_key, keys)
+
+def keys(my_bst, low_key, high_key):
+    keys_list = sll.new_list()
+    keys_range(my_bst["root"], low_key, high_key, keys_list)
+    return keys_list
