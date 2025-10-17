@@ -78,3 +78,19 @@ def value_set(my_bst):
     values = sll.new_list()
     value_set_tree(my_bst["root"], values)
     return values
+
+def keys_range(root, low_key, high_key, keys):
+    if root is None:
+        return
+    current_key = bsn.get_key(root)
+    if low_key < current_key:
+        keys_range(root["left"], low_key, high_key, keys)
+    if low_key <= current_key <= high_key:
+        sll.add_last(keys, current_key)
+    if current_key < high_key:
+        keys_range(root["right"], low_key, high_key, keys)
+
+def keys(my_bst, low_key, high_key):
+    keys_list = sll.new_list()
+    keys_range(my_bst["root"], low_key, high_key, keys_list)
+    return keys_list
