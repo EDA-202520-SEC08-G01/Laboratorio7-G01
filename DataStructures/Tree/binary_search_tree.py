@@ -94,3 +94,14 @@ def keys(my_bst, low_key, high_key):
     keys_list = sll.new_list()
     keys_range(my_bst["root"], low_key, high_key, keys_list)
     return keys_list
+
+def remove(my_bst, key):
+    key = sll.new_list()
+    n_bst = remove_node(my_bst["root"], key)
+    return n_bst
+
+def remove_node(root, key):
+    if root is None:
+        return key
+    elif root == none:
+        ""
