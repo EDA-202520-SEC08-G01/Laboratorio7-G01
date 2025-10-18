@@ -96,12 +96,61 @@ def keys(my_bst, low_key, high_key):
     return keys_list
 
 def remove(my_bst, key):
-    key = sll.new_list()
-    n_bst = remove_node(my_bst["root"], key)
-    return n_bst
+    my_bst["root"] = remove_node(my_bst["root"], key)
+    return my_bst
 
 def remove_node(root, key):
     if root is None:
-        return key
-    elif root == none:
-        ""
+        return None
+    if root["key"] == key:
+        replace = get_min_node(root["right"])
+        if replace == None:
+            root = None
+            return root
+        root["key"] = replace
+        replace = None
+        size_tree(root)
+        return root
+    elif bsn.get_key(root) > key:
+        before_target = remove_node(root["left"], key)
+    elif bsn.get_key(root) < key:
+        before_target = remove_node(root["right"], key)
+    elif before_target is not None:
+       if bsn.get_key(before_target["left"]["key"]) == key:
+          replace = get_min_node(before_target)
+          if replace == None:
+              before_target["left"] = None
+              size_tree(root)
+              return root
+          before_target["left"]["key"] = replace
+          replace = None
+          size_tree(root)
+          return root
+    elif before_target is not None:
+        if bsn.get_key(before_target["right"]["key"]) == key:
+          replace = get_min_node(before_target)
+          if replace == None:
+              before_target["right"] = None
+              size_tree(root)
+              return root
+          before_target["left"]["key"] = replace
+          replace = None
+          size_tree(root)
+          return root
+    else:
+        return root
+    
+def get_min(my_bst):
+    resultado = get_min_node(my_bst["root"])
+    return resultado
+
+def get_min_node(node):
+    if node is None:
+        return None
+    if node["left"] == None:
+        return node["key"]
+    return get_min_node(node["left"])
+
+
+
+    
