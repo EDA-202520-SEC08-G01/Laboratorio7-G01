@@ -138,5 +138,25 @@ def get_min_node(node):
     return get_min_node(node["left"])
 
 
+def height_tree(root):
+    if root is None:
+        return 0
+    left_height = height_tree(root["left"])
+    right_height = height_tree(root["right"])
+    return 1 + max(left_height, right_height)
+
+def height(my_bst):
+    return height_tree(my_bst["root"])
+
+
+def get_max_node(root):
+    if root is None:
+        return None
+    if root["right"] is None:
+        return root["key"]
+    return get_max_node(root["right"])
+
+def get_max(my_bst):
+    return get_max_node(my_bst["root"])
 
     
