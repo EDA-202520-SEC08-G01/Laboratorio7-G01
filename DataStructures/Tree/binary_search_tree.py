@@ -29,15 +29,19 @@ def put(my_bst, key, value):
 
 def get(my_bst, key):
     current = my_bst["root"]
-    while current is not None:
-        current_key = bsn.get_key(current)
-        if key == current_key:
-            return bsn.get_value(current)
-        elif key < current_key:
-            current = current["left"]
-        else:
-            current = current["right"]
-    return None
+    res = get_node(current, key)
+    res = bsn.get_value(res)
+    return res
+
+def get_node(node, key):
+    if node == None:
+        return None
+    elif key < bsn.get_key(node):
+        return get_node(node["left"], key)
+    elif key > bsn.get_key(node):
+        return get_node(node["right"], key)
+    elif node["key"] == key:
+        return node
 
 def size_tree(root):
     if root is None:
@@ -96,49 +100,31 @@ def keys(my_bst, low_key, high_key):
     return keys_list
 
 def remove(my_bst, key):
-    my_bst["root"] = remove_node(my_bst["root"], key)
+    my_bst["root"]=remove_node(my_bst["root"], key)
     return my_bst
 
-def remove_node(root, key):
-    if root is None:
-        return None
-    if root["key"] == key:
-        replace = get_min_node(root["right"])
-        if replace == None:
-            root = None
-            return root
-        root["key"] = replace
-        replace = None
-        size_tree(root)
-        return root
-    elif bsn.get_key(root) > key:
-        before_target = remove_node(root["left"], key)
-    elif bsn.get_key(root) < key:
-        before_target = remove_node(root["right"], key)
-    elif before_target is not None:
-       if bsn.get_key(before_target["left"]["key"]) == key:
-          replace = get_min_node(before_target)
-          if replace == None:
-              before_target["left"] = None
-              size_tree(root)
-              return root
-          before_target["left"]["key"] = replace
-          replace = None
-          size_tree(root)
-          return root
-    elif before_target is not None:
-        if bsn.get_key(before_target["right"]["key"]) == key:
-          replace = get_min_node(before_target)
-          if replace == None:
-              before_target["right"] = None
-              size_tree(root)
-              return root
-          before_target["left"]["key"] = replace
-          replace = None
-          size_tree(root)
-          return root
-    else:
-        return root
+def remove_node(node, key):
+    if node == None:
+        return node
+    
+    replace = None
+    key_node = bsn.get_key(node)
+
+    if key_node > key:
+        node["left"] = remove_node(node["left"], key)
+        return node
+    elif key_node < key:
+        node["right"] = remove_node(node["right"], key)
+        return node
+    elif key_node == key:
+        if node["right"] is None and node["left"] is not None:
+            replace = get_min_node(node["left"])
+        if node["right"] is not None:
+            replace = get_min_node(node["right"])
+        if replace is not None:
+            replace = get_node(node, replace)
+        node = replace
+        return node
     
 def get_min(my_bst):
     resultado = get_min_node(my_bst["root"])
