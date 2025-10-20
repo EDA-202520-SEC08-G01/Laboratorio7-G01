@@ -100,7 +100,7 @@ def keys(my_bst, low_key, high_key):
     return keys_list
 
 def remove(my_bst, key):
-    my_bst["root"]=remove_node(my_bst["root"], key)
+    my_bst["root"] = remove_node(my_bst["root"], key)
     return my_bst
 
 def remove_node(node, key):
