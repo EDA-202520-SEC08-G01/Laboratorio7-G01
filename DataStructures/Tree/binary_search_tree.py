@@ -137,9 +137,6 @@ def get_min_node(node):
         return node["key"]
     return get_min_node(node["left"])
 
-
-<<<<<<< HEAD
-=======
 def height_tree(root):
     if root is None:
         return 0
@@ -150,7 +147,6 @@ def height_tree(root):
 def height(my_bst):
     return height_tree(my_bst["root"])
 
-
 def get_max_node(root):
     if root is None:
         return None
@@ -160,6 +156,3 @@ def get_max_node(root):
 
 def get_max(my_bst):
     return get_max_node(my_bst["root"])
->>>>>>> e11b3d6110b8db720626ea1fa8e286bcc980fd69
-
-    
