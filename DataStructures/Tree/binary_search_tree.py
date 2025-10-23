@@ -159,4 +159,43 @@ def get_max_node(root):
 def get_max(my_bst):
     return get_max_node(my_bst["root"])
 
-    
+
+def values_range(root, key_initial, key_final, list_values):
+    if root is None:
+        return
+    current_key = bsn.get_key(root)
+    if key_initial < current_key:
+        values_range(root["left"], key_initial, key_final, list_values)
+    if key_initial <= current_key <= key_final:
+        sll.add_last(list_values, bsn.get_value(root))
+    if current_key < key_final:
+        values_range(root["right"], key_initial, key_final, list_values)
+
+def values(my_bst, key_initial, key_final):
+    list_values = sll.new_list()
+    values_range(my_bst["root"], key_initial, key_final, list_values)
+    return list_values
+
+def delete_min_tree(root):
+    if root is None:
+        return None
+    if root["left"] is None:
+        return root["right"]
+    root["left"] = delete_min_tree(root["left"])
+    return root
+
+def delete_min(my_bst):
+    my_bst["root"] = delete_min_tree(my_bst["root"])
+    return my_bst
+
+def delete_max_tree(root):
+    if root is None:
+        return None
+    if root["right"] is None:
+        return root["left"]
+    root["right"] = delete_max_tree(root["right"])
+    return root
+
+def delete_max(my_bst):
+    my_bst["root"] = delete_max_tree(my_bst["root"])
+    return my_bst
